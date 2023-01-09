@@ -14,10 +14,14 @@ class CardSelectionVC: UIViewController {
     let resetButton = CWButton(backgroundColor: .systemGreen, title: "Reset")
     let rulesButton = CWButton(backgroundColor: .systemBlue, title: "Rules")
     
+    var cards: [UIImage] = Deck.allValues
+    var timer = Timer()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         configureUI()
+        startTimer()
     }
     
     func configureUI() {
@@ -76,5 +80,13 @@ class CardSelectionVC: UIViewController {
     
     @objc func presentRulesVC() {
         present(RulesVC(), animated: true)
+    }
+    
+    func startTimer() {
+        timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(showRandomImage), userInfo: nil, repeats: true)
+    }
+    
+    @objc func showRandomImage() {
+        cardImageView.image = cards.randomElement() ?? UIImage(named: "AS")
     }
 }
