@@ -24,6 +24,19 @@ class CardSelectionVC: UIViewController {
         startTimer()
     }
     
+    func startTimer() {
+        timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(showRandomImage), userInfo: nil, repeats: true)
+    }
+    
+    @objc func stopTimer() {
+        timer.invalidate()
+    }
+    
+    @objc func resetTimer() {
+        timer.invalidate()
+        startTimer()
+    }
+    
     func configureUI() {
         configureCardImageView()
         configureStopButton()
@@ -82,19 +95,6 @@ class CardSelectionVC: UIViewController {
     
     @objc func presentRulesVC() {
         present(RulesVC(), animated: true)
-    }
-    
-    func startTimer() {
-        timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(showRandomImage), userInfo: nil, repeats: true)
-    }
-    
-    @objc func stopTimer() {
-        timer.invalidate()
-    }
-    
-    @objc func resetTimer() {
-        timer.invalidate()
-        startTimer()
     }
     
     @objc func showRandomImage() {
